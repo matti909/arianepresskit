@@ -1,19 +1,20 @@
+import { AboutSection } from "./components/AboutSection";
 import BioSection from "./components/BioSection";
-import ContactSection from "./components/ContactSection";
-import Footer from "./components/Footer";
-import HeroSection from "./components/HeroSection";
-import KillSyncSection from "./components/KillSyncSection";
-import RoadSection from "./components/RoadSection";
+import { ContactSection } from "./components/ContactSection";
+import { GridBackground } from "./components/GridBackground";
+import { HeroSection } from "./components/HeroSection";
+import { MusicSection } from "./components/MusicSection";
+import { Navbar } from "./components/Navbar";
 
 export default function ArianesPressKit() {
   return (
-    <div className="min-h-screen noise-background particles">
+    <main className="relative">
+      <GridBackground />
+      <Navbar />
       <HeroSection />
-      <BioSection />
-      <RoadSection />
-      <KillSyncSection />
+      <AboutSection />
+      <MusicSection />
       <ContactSection />
-      <Footer />
-    </div>
+    </main>
   );
 }

@@ -1,69 +1,95 @@
 "use client";
-import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Music, MapPin, Play, Download } from "lucide-react";
-import Image from "next/image";
 
-export default function HeroSection() {
-  const heroRef = useScrollReveal({
-    threshold: 0.1,
-    direction: "fade",
-    duration: 1500,
-    easing: "spring",
+import { Button } from "@/components/ui/button";
+import { Play, Download, Music, Headphones } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+
+export function HeroSection() {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({
+    triggerOnce: true,
+  });
+  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollReveal({
+    triggerOnce: true,
   });
 
   return (
-    <section
-      ref={heroRef}
-      className="relative h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Fondo */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-purple-900/40 to-black/60 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-15" />
-      <Image
-        src="/ariana.webp?height=1080&width=1920"
-        alt="Ariane performing"
-        fill
-        className="object-cover scale-105"
-        priority
+    <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-8 overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/ariana.webp')",
+        }}
       />
+      <div className="absolute inset-0 bg-black/60" />
 
-      {/* Contenido */}
-      <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
-        <h1 className="text-7xl md:text-9xl font-bold mb-6 gradient-text tracking-tight">
-          ARIANE
-        </h1>
-        <div className="h-0.5 w-32 bg-gradient-to-r from-purple-400 to-purple-600 mx-auto mb-6"></div>
+      <div className="absolute top-20 left-10 w-2 h-32 bg-gradient-to-b from-pink-400 to-fuchsia-600 opacity-60 blur-sm" />
+      <div className="absolute bottom-20 right-10 w-2 h-24 bg-gradient-to-t from-fuchsia-400 to-pink-600 opacity-60 blur-sm" />
+      <div className="absolute top-1/3 right-20 w-1 h-40 bg-gradient-to-b from-pink-500 to-fuchsia-700 opacity-40 blur-sm rotate-45" />
 
-        <p className="text-2xl md:text-3xl mb-8 font-light text-gray-200">
-          DJ • Producer • Underground Pioneer
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          <Badge className="minimal-badge">
-            <MapPin className="w-3 h-3 mr-1.5" /> Córdoba, Córdoba
-          </Badge>
-          <Badge className="minimal-badge">
-            <Music className="w-3 h-3 mr-1.5" /> Techno • Hard Techno •
-            Psytrance
-          </Badge>
+      <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+        {/* Main Title */}
+        <div
+          ref={titleRef}
+          className={`transition-all duration-1000 ${
+            titleVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
+          }`}
+        >
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight">
+            <span className="bg-gradient-to-r from-white via-pink-200 to-fuchsia-300 bg-clip-text text-transparent">
+              ARIANE
+            </span>
+          </h1>
+          <div className="mt-4 h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-pink-400 to-transparent" />
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button
-            size="lg"
-            className="enhanced-button bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 px-8 py-4 text-lg"
-          >
-            <Play className="w-5 h-5 mr-2" /> Explore Press Kit
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="minimal-button border-purple-400/50 text-purple-300 hover:bg-purple-50/10 px-8 py-4 text-lg bg-transparent"
-          >
-            <Download className="w-5 h-5 mr-2" /> Download Assets
-          </Button>
+        {/* Action Buttons */}
+        <div
+          ref={buttonsRef}
+          className={`transition-all duration-1000 delay-600 ${
+            buttonsVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
+          }`}
+        >
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white hover:from-pink-600 hover:to-fuchsia-600 font-semibold px-8 py-3 shadow-2xl border border-pink-300/20"
+            >
+              <Play className="w-5 h-5 mr-2" />
+              Escuchar Ahora
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-pink-600 text-pink-200 hover:bg-pink-800/50 hover:border-pink-500 px-8 py-3 backdrop-blur-sm bg-transparent"
+            >
+              <Download className="w-5 h-5 mr-2" />
+              Press Kit
+            </Button>
+          </div>
+
+          {/* Music platforms */}
+          <div className="mt-8 flex items-center justify-center gap-6 text-zinc-400">
+            <div className="flex items-center gap-2 text-sm">
+              <Music className="w-4 h-4" />
+              <span>Kill Sync Producciones</span>
+            </div>
+            <div className="w-1 h-1 bg-zinc-600 rounded-full" />
+            <div className="flex items-center gap-2 text-sm">
+              <Headphones className="w-4 h-4" />
+              <span>3 años de trayectoria</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-pink-600 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-pink-400 rounded-full mt-2 animate-pulse" />
         </div>
       </div>
     </section>
