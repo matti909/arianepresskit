@@ -33,7 +33,7 @@ export function ContactSection() {
             </span>
           </h2>
           <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-            Ready to collaborate or need more information? Let's connect.
+            Ready to collaborate or need more information?
           </p>
         </div>
 

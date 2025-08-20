@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Zap, Waves, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 export function AboutSection() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({
@@ -106,9 +107,11 @@ export function AboutSection() {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-fuchsia-500/20 rounded-2xl blur-xl" />
-              <img
+              <Image
                 src="/ariane4.jpg?height=600&width=500"
                 alt="Ariane DJ"
+                width={500}
+                height={600}
                 className="relative w-full h-[600px] object-cover rounded-2xl border border-pink-700/30 shadow-2xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-2xl" />

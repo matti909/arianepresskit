@@ -1,5 +1,4 @@
 import { AboutSection } from "./components/AboutSection";
-import BioSection from "./components/BioSection";
 import { ContactSection } from "./components/ContactSection";
 import { GridBackground } from "./components/GridBackground";
 import { HeroSection } from "./components/HeroSection";
