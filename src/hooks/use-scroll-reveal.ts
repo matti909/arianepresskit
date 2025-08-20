@@ -8,38 +8,33 @@ interface UseScrollRevealOptions {
   triggerOnce?: boolean;
 }
 
-export function useScrollReveal(options: UseScrollRevealOptions = {}) {
+export function useScrollReveal<E extends HTMLElement = HTMLDivElement>(
+  options: UseScrollRevealOptions = {},
+) {
+  const { threshold = 0.1, rootMargin = "0px", triggerOnce = false } = options;
+
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLElement | undefined>(undefined);
+  const ref = useRef<E | null>(null); // 👈 importante: null, no undefined
 
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          if (options.triggerOnce) {
-            observer.unobserve(entry.target);
-          }
-        } else if (!options.triggerOnce) {
+          if (triggerOnce) observer.unobserve(entry.target);
+        } else if (!triggerOnce) {
           setIsVisible(false);
         }
       },
-      {
-        threshold: options.threshold || 0.1,
-        rootMargin: options.rootMargin || "0px",
-      },
+      { threshold, rootMargin },
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [options.threshold, options.rootMargin, options.triggerOnce]);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold, rootMargin, triggerOnce]);
 
   return { ref, isVisible };
 }
