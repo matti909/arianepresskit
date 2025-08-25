@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, Mail, Download } from "lucide-react";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -80,7 +80,7 @@ export function Navbar() {
                 borderColor: `oklch(0.51 0.19 28 / 0.3)`,
               }}
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Mail className="w-4 h-4 mr-2" />
               Press Kit
             </Button>
           </div>
