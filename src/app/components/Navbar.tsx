@@ -4,7 +4,8 @@ import type React from "react";
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, Mail, Download } from "lucide-react";
+import { Menu, Mail, Download, X } from "lucide-react";
+import Image from "next/image";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,7 +42,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-gradient-brand">ARIANE</h1>
+            <Image src="/logoari2.png" alt="logo" width={100} height={70} />
           </div>
 
           {/* Desktop Navigation */}
@@ -51,7 +52,7 @@ export function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-zinc-300 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg hover:text-white"
+                  className="text-zinc-300 px-3 py-2 text-xl font-bold transition-colors duration-200 rounded-lg hover:text-white"
                   style={
                     {
                       "--hover-bg": `oklch(0.44 0.16 27 / 0.3)`,

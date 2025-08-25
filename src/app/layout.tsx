@@ -4,8 +4,8 @@ import "./globals.css";
 import Footer from "./components/Footer";
 
 const osSans = Oswald({
-  variable: "--font-oswald-sans",
   subsets: ["latin"],
+  weight: ["400", "700"], // opcional
 });
 
 export const metadata: Metadata = {
@@ -15,12 +15,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${osSans.variable} ${osSans.variable} antialiased`}>
+      <body className={`${osSans.className} antialiased`}>
         {children}
         <Footer />
       </body>

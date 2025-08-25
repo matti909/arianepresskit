@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Play, Download, Music, Headphones } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import Image from "next/image";
 
 export function HeroSection() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({
@@ -51,9 +52,9 @@ export function HeroSection() {
               : "opacity-0 translate-y-8"
           }`}
         >
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight">
-            <span className="text-gradient-brand">ARIANE</span>
-          </h1>
+          <div className="flex justify-center">
+            <Image src="/logoari1.png" alt="logo2" width={300} height={290} />
+          </div>
           <div
             className="mt-4 h-1 w-32 mx-auto"
             style={{

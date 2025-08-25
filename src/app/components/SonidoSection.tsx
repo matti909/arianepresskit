@@ -1,6 +1,7 @@
 "use client";
 
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import Image from "next/image";
 
 export function EstiloSonidoSection() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal();
@@ -80,9 +81,11 @@ export function EstiloSonidoSection() {
           >
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-              <img
-                src="/dj-ariane-performing-with-dynamic-lighting-and-sou.png"
+              <Image
+                src="/estiloysonido.jpg"
                 alt="Ariane performing"
+                width={600}
+                height={500}
                 className="relative rounded-2xl w-full h-[400px] object-cover border border-zinc-800"
               />
             </div>
