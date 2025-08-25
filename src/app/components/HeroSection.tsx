@@ -22,9 +22,24 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 bg-black/60" />
 
-      <div className="absolute top-20 left-10 w-2 h-32 bg-gradient-to-b from-pink-400 to-fuchsia-600 opacity-60 blur-sm" />
-      <div className="absolute bottom-20 right-10 w-2 h-24 bg-gradient-to-t from-fuchsia-400 to-pink-600 opacity-60 blur-sm" />
-      <div className="absolute top-1/3 right-20 w-1 h-40 bg-gradient-to-b from-pink-500 to-fuchsia-700 opacity-40 blur-sm rotate-45" />
+      <div
+        className="absolute top-20 left-10 w-2 h-32 opacity-60 blur-sm"
+        style={{
+          background: `linear-gradient(to bottom, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
+        }}
+      />
+      <div
+        className="absolute bottom-20 right-10 w-2 h-24 opacity-60 blur-sm"
+        style={{
+          background: `linear-gradient(to top, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
+        }}
+      />
+      <div
+        className="absolute top-1/3 right-20 w-1 h-40 opacity-40 blur-sm rotate-45"
+        style={{
+          background: `linear-gradient(to bottom, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
+        }}
+      />
 
       <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
         {/* Main Title */}
@@ -37,11 +52,14 @@ export function HeroSection() {
           }`}
         >
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-white via-pink-200 to-fuchsia-300 bg-clip-text text-transparent">
-              ARIANE
-            </span>
+            <span className="text-gradient-brand">ARIANE</span>
           </h1>
-          <div className="mt-4 h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-pink-400 to-transparent" />
+          <div
+            className="mt-4 h-1 w-32 mx-auto"
+            style={{
+              background: `linear-gradient(to right, transparent, oklch(0.51 0.19 28), transparent)`,
+            }}
+          />
         </div>
 
         {/* Action Buttons */}
@@ -56,7 +74,10 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white hover:from-pink-600 hover:to-fuchsia-600 font-semibold px-8 py-3 shadow-2xl border border-pink-300/20"
+              className="bg-gradient-brand text-white hover:opacity-90 font-semibold px-8 py-3 shadow-2xl"
+              style={{
+                borderColor: `oklch(0.51 0.19 28 / 0.2)`,
+              }}
             >
               <Play className="w-5 h-5 mr-2" />
               Escuchar Ahora
@@ -64,7 +85,11 @@ export function HeroSection() {
             <Button
               size="lg"
               variant="outline"
-              className="border-pink-600 text-pink-200 hover:bg-pink-800/50 hover:border-pink-500 px-8 py-3 backdrop-blur-sm bg-transparent"
+              className="text-white hover:bg-black/50 px-8 py-3 backdrop-blur-sm bg-transparent"
+              style={{
+                borderColor: `oklch(0.44 0.16 27)`,
+                color: `oklch(0.51 0.19 28)`,
+              }}
             >
               <Download className="w-5 h-5 mr-2" />
               Press Kit
@@ -88,8 +113,14 @@ export function HeroSection() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-pink-600 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-pink-400 rounded-full mt-2 animate-pulse" />
+        <div
+          className="w-6 h-10 border-2 rounded-full flex justify-center"
+          style={{ borderColor: `oklch(0.44 0.16 27)` }}
+        >
+          <div
+            className="w-1 h-3 rounded-full mt-2 animate-pulse"
+            style={{ backgroundColor: `oklch(0.51 0.19 28)` }}
+          />
         </div>
       </div>
     </section>

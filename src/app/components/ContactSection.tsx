@@ -14,9 +14,18 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="py-24 px-6 lg:px-8 relative">
-      {/* Metallic accents */}
-      <div className="absolute top-0 left-0 w-40 h-px bg-gradient-to-r from-transparent via-zinc-400 to-transparent" />
-      <div className="absolute bottom-0 right-0 w-40 h-px bg-gradient-to-l from-transparent via-zinc-400 to-transparent" />
+      <div
+        className="absolute top-0 left-0 w-40 h-px"
+        style={{
+          background: `linear-gradient(to right, transparent, oklch(0.51 0.19 28), transparent)`,
+        }}
+      />
+      <div
+        className="absolute bottom-0 right-0 w-40 h-px"
+        style={{
+          background: `linear-gradient(to left, transparent, oklch(0.51 0.19 28), transparent)`,
+        }}
+      />
 
       <div className="max-w-4xl mx-auto">
         <div
@@ -28,12 +37,10 @@ export function ContactSection() {
           }`}
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-zinc-200 via-zinc-100 to-zinc-300 bg-clip-text text-transparent">
-              Get in Touch
-            </span>
+            <span className="text-gradient-brand">Booking & Contacto</span>
           </h2>
           <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-            Ready to collaborate or need more information?
+            ¿Listo para colaborar o necesitas más información? Conectemos.
           </p>
         </div>
 
@@ -46,97 +53,114 @@ export function ContactSection() {
           }`}
         >
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Contact Info */}
             <div className="space-y-8">
-              <div className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border border-zinc-700/50 backdrop-blur-sm">
+              <div
+                className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border backdrop-blur-sm"
+                style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
+              >
                 <h3 className="text-2xl font-bold text-zinc-200 mb-6">
-                  Contact Information
+                  Información de Contacto
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4">
-                    <Mail className="w-5 h-5 text-zinc-400" />
+                    <Mail
+                      className="w-5 h-5"
+                      style={{ color: `oklch(0.51 0.19 28)` }}
+                    />
                     <span className="text-zinc-300">
-                      booking@ariane-music.com
+                      killsyncproducciones@gmail.com
                     </span>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <Phone className="w-5 h-5 text-zinc-400" />
-                    <span className="text-zinc-300">+1 (555) 123-4567</span>
+                    <Phone
+                      className="w-5 h-5"
+                      style={{ color: `oklch(0.51 0.19 28)` }}
+                    />
+                    <span className="text-zinc-300">+54 3625 663769</span>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <MapPin className="w-5 h-5 text-zinc-400" />
-                    <span className="text-zinc-300">Los Angeles, CA</span>
+                    <MapPin
+                      className="w-5 h-5"
+                      style={{ color: `oklch(0.51 0.19 28)` }}
+                    />
+                    <span className="text-zinc-300">
+                      Resistencia, Chaco, Argentina
+                    </span>
                   </div>
                 </div>
               </div>
 
               {/* Social Links */}
-              <div className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border border-zinc-700/50 backdrop-blur-sm">
+              <div
+                className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border backdrop-blur-sm"
+                style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
+              >
                 <h3 className="text-2xl font-bold text-zinc-200 mb-6">
-                  Follow the Journey
+                  Síguenos
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button
-                    variant="outline"
-                    className="border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 hover:border-zinc-500 justify-start bg-transparent"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Spotify
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 hover:border-zinc-500 justify-start bg-transparent"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    SoundCloud
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 hover:border-zinc-500 justify-start bg-transparent"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Instagram
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 hover:border-zinc-500 justify-start bg-transparent"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    YouTube
-                  </Button>
+                  {["Instagram", "SoundCloud", "Facebook", "YouTube"].map(
+                    (platform) => (
+                      <Button
+                        key={platform}
+                        variant="outline"
+                        className="justify-start bg-transparent hover:bg-black/50"
+                        style={{
+                          borderColor: `oklch(0.44 0.16 27)`,
+                          color: `oklch(0.51 0.19 28)`,
+                        }}
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        {platform}
+                      </Button>
+                    ),
+                  )}
                 </div>
               </div>
             </div>
 
-            {/* Press Kit */}
             <div className="space-y-8">
-              <div className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border border-zinc-700/50 backdrop-blur-sm">
+              <div
+                className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border backdrop-blur-sm"
+                style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
+              >
                 <h3 className="text-2xl font-bold text-zinc-200 mb-6">
                   Press Kit
                 </h3>
                 <p className="text-zinc-400 mb-6">
-                  Download high-resolution photos, biography, and technical
-                  requirements for media and booking purposes.
+                  Descarga fotos de alta resolución, biografía y requerimientos
+                  técnicos para medios y booking.
                 </p>
-                <Button className="w-full bg-gradient-to-r from-zinc-200 to-zinc-100 text-black hover:from-zinc-100 hover:to-zinc-200 font-semibold shadow-lg">
-                  Download Press Kit
+                <Button className="w-full bg-gradient-brand text-white hover:opacity-90 font-semibold shadow-lg">
+                  Descargar Press Kit
                 </Button>
               </div>
 
-              <div className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border border-zinc-700/50 backdrop-blur-sm">
+              <div
+                className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border backdrop-blur-sm"
+                style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
+              >
                 <h3 className="text-2xl font-bold text-zinc-200 mb-6">
                   Booking
                 </h3>
-                <p className="text-zinc-400 mb-6">
-                  Available for live performances, DJ sets, and collaborative
-                  projects worldwide.
+                <p className="text-zinc-400 mb-4">
+                  Disponible para presentaciones en vivo, DJ sets y proyectos
+                  colaborativos.
+                </p>
+                <p className="text-zinc-500 text-sm mb-6">
+                  La productora debe proporcionar transporte, abastecimiento y
+                  alojamiento si es necesario.
                 </p>
                 <Button
                   variant="outline"
-                  className="w-full border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 hover:border-zinc-500 bg-transparent"
+                  className="w-full bg-transparent hover:bg-black/50"
+                  style={{
+                    borderColor: `oklch(0.44 0.16 27)`,
+                    color: `oklch(0.51 0.19 28)`,
+                  }}
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  Send Booking Inquiry
+                  Enviar Consulta de Booking
                 </Button>
               </div>
             </div>

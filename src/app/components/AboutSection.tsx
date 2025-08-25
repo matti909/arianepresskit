@@ -1,5 +1,7 @@
 "use client";
 
+import type React from "react";
+
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Zap, Waves, Sparkles } from "lucide-react";
 import Image from "next/image";
@@ -17,7 +19,12 @@ export function AboutSection() {
 
   return (
     <section id="about" className="py-24 px-6 lg:px-8 relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-pink-400 to-transparent" />
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px"
+        style={{
+          background: `linear-gradient(to right, transparent, oklch(0.51 0.19 28), transparent)`,
+        }}
+      />
 
       <div className="max-w-6xl mx-auto">
         <div
@@ -29,11 +36,14 @@ export function AboutSection() {
           }`}
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-pink-200 to-fuchsia-300 bg-clip-text text-transparent">
-              Sobre la Artista
-            </span>
+            <span className="text-gradient-brand">Sobre la Artista</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-pink-600 to-fuchsia-400 mx-auto" />
+          <div
+            className="w-16 h-1 mx-auto"
+            style={{
+              background: `linear-gradient(to right, oklch(0.44 0.16 27), oklch(0.51 0.19 28))`,
+            }}
+          />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -61,7 +71,7 @@ export function AboutSection() {
             </p>
             <p className="text-lg text-zinc-300 leading-relaxed">
               Además, su compromiso con la escena underground la llevó a fundar{" "}
-              <span className="text-gradient-pink font-semibold">
+              <span className="text-gradient-brand font-semibold">
                 Kill Sync
               </span>
               , una productora que impulsa eventos de techno, hard techno y
@@ -71,22 +81,79 @@ export function AboutSection() {
 
             {/* Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
-              <div className="text-center p-6 bg-zinc-900/50 rounded-lg border border-pink-800/30 backdrop-blur-sm hover:border-pink-600/50 transition-colors">
-                <Zap className="w-8 h-8 text-pink-400 mx-auto mb-3" />
+              <div
+                className="text-center p-6 bg-zinc-900/50 rounded-lg border backdrop-blur-sm hover:border-opacity-50 transition-colors"
+                style={
+                  {
+                    borderColor: `oklch(0.44 0.16 27 / 0.3)`,
+                    "--hover-border": `oklch(0.44 0.16 27 / 0.5)`,
+                  } as React.CSSProperties
+                }
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "oklch(0.44 0.16 27 / 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "oklch(0.44 0.16 27 / 0.3)";
+                }}
+              >
+                <Zap
+                  className="w-8 h-8 mx-auto mb-3"
+                  style={{ color: `oklch(0.51 0.19 28)` }}
+                />
                 <h3 className="text-zinc-200 font-semibold mb-2">Versátil</h3>
                 <p className="text-sm text-zinc-400">
                   Progressive house, melodic techno, hard techno
                 </p>
               </div>
-              <div className="text-center p-6 bg-zinc-900/50 rounded-lg border border-pink-800/30 backdrop-blur-sm hover:border-pink-600/50 transition-colors">
-                <Waves className="w-8 h-8 text-pink-400 mx-auto mb-3" />
+              <div
+                className="text-center p-6 bg-zinc-900/50 rounded-lg border backdrop-blur-sm hover:border-opacity-50 transition-colors"
+                style={
+                  {
+                    borderColor: `oklch(0.44 0.16 27 / 0.3)`,
+                    "--hover-border": `oklch(0.44 0.16 27 / 0.5)`,
+                  } as React.CSSProperties
+                }
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "oklch(0.44 0.16 27 / 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "oklch(0.44 0.16 27 / 0.3)";
+                }}
+              >
+                <Waves
+                  className="w-8 h-8 mx-auto mb-3"
+                  style={{ color: `oklch(0.51 0.19 28)` }}
+                />
                 <h3 className="text-zinc-200 font-semibold mb-2">Inmersiva</h3>
                 <p className="text-sm text-zinc-400">
                   Sets dinámicos entre lo hipnótico y contundente
                 </p>
               </div>
-              <div className="text-center p-6 bg-zinc-900/50 rounded-lg border border-pink-800/30 backdrop-blur-sm hover:border-pink-600/50 transition-colors">
-                <Sparkles className="w-8 h-8 text-pink-400 mx-auto mb-3" />
+              <div
+                className="text-center p-6 bg-zinc-900/50 rounded-lg border backdrop-blur-sm hover:border-opacity-50 transition-colors"
+                style={
+                  {
+                    borderColor: `oklch(0.44 0.16 27 / 0.3)`,
+                    "--hover-border": `oklch(0.44 0.16 27 / 0.5)`,
+                  } as React.CSSProperties
+                }
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "oklch(0.44 0.16 27 / 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "oklch(0.44 0.16 27 / 0.3)";
+                }}
+              >
+                <Sparkles
+                  className="w-8 h-8 mx-auto mb-3"
+                  style={{ color: `oklch(0.51 0.19 28)` }}
+                />
                 <h3 className="text-zinc-200 font-semibold mb-2">
                   Underground
                 </h3>
@@ -106,13 +173,19 @@ export function AboutSection() {
             }`}
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-fuchsia-500/20 rounded-2xl blur-xl" />
+              <div
+                className="absolute inset-0 rounded-2xl blur-xl"
+                style={{
+                  background: `linear-gradient(135deg, oklch(0.51 0.19 28 / 0.2), oklch(0.44 0.16 27 / 0.2))`,
+                }}
+              />
               <Image
-                src="/ariane4.jpg?height=600&width=500"
+                src="/1b.jpg?height=600&width=500"
                 alt="Ariane DJ"
                 width={500}
                 height={600}
-                className="relative w-full h-[600px] object-cover rounded-2xl border border-pink-700/30 shadow-2xl"
+                className="relative w-full h-[600px] object-cover rounded-2xl border shadow-2xl"
+                style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-2xl" />
             </div>

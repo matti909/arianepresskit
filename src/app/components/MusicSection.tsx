@@ -1,5 +1,7 @@
 "use client";
 
+import type React from "react";
+
 import { Button } from "@/components/ui/button";
 import { Play, ExternalLink, Calendar, MapPin } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -45,7 +47,12 @@ export function MusicSection() {
 
   return (
     <section id="music" className="py-24 px-6 lg:px-8 relative">
-      <div className="absolute top-12 right-12 w-32 h-px bg-gradient-to-r from-pink-600 to-transparent" />
+      <div
+        className="absolute top-12 right-12 w-32 h-px"
+        style={{
+          background: `linear-gradient(to right, oklch(0.44 0.16 27), transparent)`,
+        }}
+      />
 
       <div className="max-w-6xl mx-auto">
         <div
@@ -57,7 +64,7 @@ export function MusicSection() {
           }`}
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-pink-200 to-fuchsia-300 bg-clip-text text-transparent">
+            <span className="text-gradient-brand">
               Presentaciones Destacadas
             </span>
           </h2>
@@ -79,14 +86,31 @@ export function MusicSection() {
             {performances.map((performance, index) => (
               <div
                 key={performance.city}
-                className="group bg-gradient-to-r from-zinc-900/80 to-zinc-800/80 p-6 rounded-xl border border-pink-700/30 backdrop-blur-sm hover:border-pink-600/50 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-900/20"
+                className="group bg-gradient-to-r from-zinc-900/80 to-zinc-800/80 p-6 rounded-xl border backdrop-blur-sm hover:shadow-2xl transition-all duration-300"
+                style={
+                  {
+                    borderColor: `oklch(0.44 0.16 27 / 0.3)`,
+                    "--hover-border": `oklch(0.44 0.16 27 / 0.5)`,
+                    "--hover-shadow": `oklch(0.44 0.16 27 / 0.2)`,
+                  } as React.CSSProperties
+                }
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "oklch(0.44 0.16 27 / 0.5)";
+                  e.currentTarget.style.boxShadow = `0 25px 50px -12px oklch(0.44 0.16 27 / 0.2)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "oklch(0.44 0.16 27 / 0.3)";
+                  e.currentTarget.style.boxShadow = "";
+                }}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-6">
                     {/* Play button */}
                     <Button
                       size="sm"
-                      className="bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white hover:from-pink-600 hover:to-fuchsia-600 w-12 h-12 rounded-full p-0 shadow-lg group-hover:scale-110 transition-transform duration-300"
+                      className="bg-gradient-brand text-white hover:opacity-90 w-12 h-12 rounded-full p-0 shadow-lg group-hover:scale-110 transition-transform duration-300"
                     >
                       <Play className="w-5 h-5 ml-0.5" />
                     </Button>
@@ -96,7 +120,10 @@ export function MusicSection() {
                       <h3 className="text-xl font-semibold text-zinc-100 group-hover:text-white transition-colors">
                         {performance.city}
                       </h3>
-                      <p className="text-pink-300 text-sm">
+                      <p
+                        className="text-sm"
+                        style={{ color: `oklch(0.51 0.19 28)` }}
+                      >
                         {performance.venue}
                       </p>
                       <p className="text-zinc-500 text-xs mt-1">
@@ -129,7 +156,11 @@ export function MusicSection() {
             <Button
               size="lg"
               variant="outline"
-              className="border-pink-600 text-pink-200 hover:bg-pink-800/50 hover:border-pink-500 px-8 py-3 backdrop-blur-sm bg-transparent"
+              className="px-8 py-3 backdrop-blur-sm bg-transparent hover:bg-black/50"
+              style={{
+                borderColor: `oklch(0.44 0.16 27)`,
+                color: `oklch(0.51 0.19 28)`,
+              }}
             >
               <ExternalLink className="w-5 h-5 mr-2" />
               Ver Todas las Presentaciones
