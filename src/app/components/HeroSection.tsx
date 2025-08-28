@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Download, Music, Headphones } from "lucide-react";
+import { Play, Download, Music, Headphones, X } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import Image from "next/image";
 
 export function HeroSection() {
+  const [showModal, setShowModal] = useState(false);
+
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({
     triggerOnce: true,
   });
@@ -15,6 +18,7 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-8 overflow-hidden">
+      {/* Fondo */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
@@ -23,27 +27,9 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 bg-black/60" />
 
-      <div
-        className="absolute top-20 left-10 w-2 h-32 opacity-60 blur-sm"
-        style={{
-          background: `linear-gradient(to bottom, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
-        }}
-      />
-      <div
-        className="absolute bottom-20 right-10 w-2 h-24 opacity-60 blur-sm"
-        style={{
-          background: `linear-gradient(to top, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
-        }}
-      />
-      <div
-        className="absolute top-1/3 right-20 w-1 h-40 opacity-40 blur-sm rotate-45"
-        style={{
-          background: `linear-gradient(to bottom, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
-        }}
-      />
-
+      {/* Contenido */}
       <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
-        {/* Main Title */}
+        {/* Logo */}
         <div
           ref={titleRef}
           className={`transition-all duration-1000 ${
@@ -63,7 +49,7 @@ export function HeroSection() {
           />
         </div>
 
-        {/* Action Buttons */}
+        {/* Botones */}
         <div
           ref={buttonsRef}
           className={`transition-all duration-1000 delay-600 ${
@@ -76,6 +62,7 @@ export function HeroSection() {
             <Button
               size="lg"
               className="bg-gradient-brand text-white hover:opacity-90 font-semibold px-8 py-3 shadow-2xl"
+              onClick={() => setShowModal(true)} // 👈 abre modal
               style={{
                 borderColor: `oklch(0.51 0.19 28 / 0.2)`,
               }}
@@ -96,34 +83,35 @@ export function HeroSection() {
               Press Kit
             </Button>
           </div>
+        </div>
+      </div>
 
-          {/* Music platforms */}
-          <div className="mt-8 flex items-center justify-center gap-6 text-zinc-400">
-            <div className="flex items-center gap-2 text-sm">
-              <Music className="w-4 h-4" />
-              <span>Kill Sync Producciones</span>
-            </div>
-            <div className="w-1 h-1 bg-zinc-600 rounded-full" />
-            <div className="flex items-center gap-2 text-sm">
-              <Headphones className="w-4 h-4" />
-              <span>3 años de trayectoria</span>
+      {/* Modal con iframe */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div className="relative w-full max-w-3xl mx-4 rounded-xl overflow-hidden">
+            {/* Botón cerrar */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-2 right-2 z-10 bg-black/70 rounded-full p-2 hover:bg-black/90"
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Iframe responsive */}
+            <div className="relative aspect-video w-full">
+              <iframe
+                src="https://www.youtube.com/embed/VhoDNkFFuO4"
+                title="YouTube video"
+                className="absolute inset-0 w-full h-full rounded-xl"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div
-          className="w-6 h-10 border-2 rounded-full flex justify-center"
-          style={{ borderColor: `oklch(0.44 0.16 27)` }}
-        >
-          <div
-            className="w-1 h-3 rounded-full mt-2 animate-pulse"
-            style={{ backgroundColor: `oklch(0.51 0.19 28)` }}
-          />
-        </div>
-      </div>
+      )}
     </section>
   );
 }
