@@ -1,16 +1,41 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Mail, MapPin, Phone, ExternalLink } from "lucide-react";
-import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import type React from "react";
 
-export function ContactSection() {
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, MapPin, Phone, ExternalLink, Send } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useState } from "react";
+import SocialLinks from "./SocialLinks";
+
+export function Formulario() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({
     triggerOnce: true,
   });
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal({
     triggerOnce: true,
   });
+
+  const [formData, setFormData] = useState({
+    nombreCompleto: "",
+    ciudad: "",
+    mensaje: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Here you would typically send the form data to your backend
+  };
 
   return (
     <section id="contact" className="py-24 px-6 lg:px-8 relative">
@@ -27,7 +52,7 @@ export function ContactSection() {
         }}
       />
 
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div
           ref={titleRef}
           className={`text-center mb-16 transition-all duration-1000 ${
@@ -52,7 +77,86 @@ export function ContactSection() {
               : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Left Column - Contact Form */}
+            <div>
+              <div
+                className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border backdrop-blur-sm"
+                style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
+              >
+                <h3 className="text-2xl font-bold text-zinc-200 mb-6">
+                  Envíanos un Mensaje
+                </h3>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="nombreCompleto"
+                      className="block text-sm font-medium text-zinc-300 mb-2"
+                    >
+                      Nombre Completo
+                    </label>
+                    <Input
+                      id="nombreCompleto"
+                      name="nombreCompleto"
+                      type="text"
+                      value={formData.nombreCompleto}
+                      onChange={handleInputChange}
+                      required
+                      className="bg-zinc-800/50 border-zinc-700 text-zinc-200 focus:border-[oklch(0.51_0.19_28)] focus:ring-[oklch(0.51_0.19_28)]"
+                      placeholder="Tu nombre completo"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="ciudad"
+                      className="block text-sm font-medium text-zinc-300 mb-2"
+                    >
+                      Ciudad
+                    </label>
+                    <Input
+                      id="ciudad"
+                      name="ciudad"
+                      type="text"
+                      value={formData.ciudad}
+                      onChange={handleInputChange}
+                      required
+                      className="bg-zinc-800/50 border-zinc-700 text-zinc-200 focus:border-[oklch(0.51_0.19_28)] focus:ring-[oklch(0.51_0.19_28)]"
+                      placeholder="Tu ciudad"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="mensaje"
+                      className="block text-sm font-medium text-zinc-300 mb-2"
+                    >
+                      Mensaje
+                    </label>
+                    <Textarea
+                      id="mensaje"
+                      name="mensaje"
+                      value={formData.mensaje}
+                      onChange={handleInputChange}
+                      required
+                      rows={6}
+                      className="bg-zinc-800/50 border-zinc-700 text-zinc-200 focus:border-[oklch(0.51_0.19_28)] focus:ring-[oklch(0.51_0.19_28)] resize-none"
+                      placeholder="Cuéntanos sobre tu evento, colaboración o consulta..."
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-brand text-white hover:opacity-90 font-semibold shadow-lg"
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    Enviar Mensaje
+                  </Button>
+                </form>
+              </div>
+            </div>
+
+            {/* Right Column - Contact Information */}
             <div className="space-y-8">
               <div
                 className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border backdrop-blur-sm"
@@ -98,45 +202,8 @@ export function ContactSection() {
                 <h3 className="text-2xl font-bold text-zinc-200 mb-6">
                   Síguenos
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {["Instagram", "SoundCloud", "Facebook", "YouTube"].map(
-                    (platform) => (
-                      <Button
-                        key={platform}
-                        variant="outline"
-                        className="justify-start bg-transparent hover:bg-black/50"
-                        style={{
-                          borderColor: `oklch(0.44 0.16 27)`,
-                          color: `oklch(0.51 0.19 28)`,
-                        }}
-                      >
-                        <ExternalLink
-                          href="https://soundcloud.com/ariana-amelia"
-                          className="w-4 h-4 mr-2"
-                        />
-                        {platform}
-                      </Button>
-                    ),
-                  )}
-                </div>
-              </div>
-            </div>
 
-            <div className="space-y-8">
-              <div
-                className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border backdrop-blur-sm"
-                style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
-              >
-                <h3 className="text-2xl font-bold text-zinc-200 mb-6">
-                  Press Kit
-                </h3>
-                <p className="text-zinc-400 mb-6">
-                  Descarga fotos de alta resolución, biografía y requerimientos
-                  técnicos para medios y booking.
-                </p>
-                <Button className="w-full bg-gradient-brand text-white hover:opacity-90 font-semibold shadow-lg">
-                  Descargar Press Kit
-                </Button>
+                <SocialLinks />
               </div>
 
               <div
@@ -154,17 +221,6 @@ export function ContactSection() {
                   La productora debe proporcionar transporte, abastecimiento y
                   alojamiento si es necesario.
                 </p>
-                <Button
-                  variant="outline"
-                  className="w-full bg-transparent hover:bg-black/50"
-                  style={{
-                    borderColor: `oklch(0.44 0.16 27)`,
-                    color: `oklch(0.51 0.19 28)`,
-                  }}
-                >
-                  <Mail className="w-4 h-4 mr-2" />
-                  Enviar Consulta de Booking
-                </Button>
               </div>
             </div>
           </div>

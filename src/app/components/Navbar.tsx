@@ -23,7 +23,7 @@ export function Navbar() {
     { name: "Sobre", href: "#about" },
     { name: "Música", href: "#music" },
     { name: "Estilo", href: "#style" },
-    { name: "Contacto", href: "#contact" },
+    { name: "Contacto", href: "/contact" },
   ];
 
   return (
