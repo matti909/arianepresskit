@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Play, Download, Music, Headphones, X } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import Image from "next/image";
+import { Logoari1 } from "../../../public/svg";
 
 export function HeroSection() {
   const [showModal, setShowModal] = useState(false);
@@ -39,7 +40,7 @@ export function HeroSection() {
           }`}
         >
           <div className="flex justify-center">
-            <Image src="/logoari1.png" alt="logo2" width={300} height={290} />
+            <Logoari1 className="w-64 h-64" />
           </div>
           <div
             className="mt-4 h-1 w-32 mx-auto"
