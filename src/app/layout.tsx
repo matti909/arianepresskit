@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Oswald } from "next/font/google";
+import { Orbitron } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/Navbar";
 import Footer from "./components/Footer";
 import SocialSideBar from "./components/SideBar";
 import { GridBackground } from "./components/GridBackground";
 
-const osSans = Oswald({
+const orbitron = Orbitron({
   subsets: ["latin"],
-  weight: ["400", "700"], // opcional
+  weight: ["400", "500", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${osSans.className} antialiased`}>
+      <body className={`${orbitron.className} antialiased`}>
         <Navbar />
         <SocialSideBar />
         <GridBackground />

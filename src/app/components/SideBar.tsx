@@ -2,7 +2,7 @@
 
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Instagram, AudioLines } from "lucide-react";
-import { IconBrandTiktok, IconBrandYoutube } from "@tabler/icons-react";
+import { IconBrandTiktok } from "@tabler/icons-react";
 
 export default function SocialSideBar() {
   const { ref, isVisible } = useScrollReveal();
@@ -35,15 +35,6 @@ export default function SocialSideBar() {
           <IconBrandTiktok className="w-5 h-5 text-white group-hover:text-[oklch(0.51_0.19_28)] transition-colors duration-300" />
         </a>
 
-        {/* YouTube */}
-        <a
-          href="https://www.youtube.com/@arianejmusic"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative p-3 rounded-full bg-black/40 border border-white/10 hover:border-[oklch(0.51_0.19_28)] transition-all duration-300 hover:bg-[oklch(0.51_0.19_28)]/10"
-        >
-          <IconBrandYoutube className="w-5 h-5 text-white group-hover:text-[oklch(0.51_0.19_28)] transition-colors duration-300" />
-        </a>
 
         {/* SoundCloud */}
         <a
