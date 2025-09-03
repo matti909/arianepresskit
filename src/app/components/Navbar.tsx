@@ -21,10 +21,22 @@ export function Navbar() {
 
   const navItems = [
     { name: "Sobre", href: "#about" },
-    { name: "Música", href: "#music" },
-    { name: "Estilo", href: "#style" },
-    { name: "Contacto", href: "/contact" },
+    { name: "Música", href: "#presentaciones" },
+    { name: "Estilo", href: "#estilo-sonido" },
+    { name: "Kill Sync", href: "#kill-sync" },
   ];
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    e.preventDefault();
+    const targetId = href.substring(1); // Remove the '#'
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <nav
@@ -52,6 +64,7 @@ export function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className="text-zinc-300 px-3 py-2 text-xl font-bold transition-colors duration-200 rounded-lg hover:text-white"
                   style={
                     {
@@ -76,13 +89,18 @@ export function Navbar() {
 
           <div className="hidden md:block">
             <Button
-              className="bg-gradient-brand hover:opacity-90 text-white shadow-lg"
+              className="bg-gradient-brand hover:opacity-90 text-white shadow-lg text-xl"
               style={{
                 borderColor: `oklch(0.51 0.19 28 / 0.3)`,
               }}
+              onClick={() => {
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               <Mail className="w-4 h-4 mr-2" />
-              Press Kit
+              Contacto
             </Button>
           </div>
 
@@ -127,7 +145,10 @@ export function Navbar() {
                   key={item.name}
                   href={item.href}
                   className="text-zinc-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors duration-200 rounded-lg"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    handleNavClick(e, item.href);
+                    setIsMobileMenuOpen(false);
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor =
                       "oklch(0.44 0.16 27 / 0.3)";
@@ -147,9 +168,15 @@ export function Navbar() {
                   style={{
                     borderColor: `oklch(0.51 0.19 28 / 0.3)`,
                   }}
+                  onClick={() => {
+                    document
+                      .getElementById("kill-sync")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  Press Kit
+                  Contacto
                 </Button>
               </div>
             </div>

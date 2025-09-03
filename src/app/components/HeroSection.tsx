@@ -40,7 +40,7 @@ export function HeroSection() {
           }`}
         >
           <div className="flex justify-center">
-            <Logoari1 className="w-64 h-64" />
+            <Logoari1 className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64" />
           </div>
           <div
             className="mt-4 h-1 w-32 mx-auto"

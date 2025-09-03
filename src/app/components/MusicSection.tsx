@@ -1,60 +1,52 @@
 "use client";
 
-import type React from "react";
-
-import { Button } from "@/components/ui/button";
-import { Play, ExternalLink, Calendar, MapPin } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 export function MusicSection() {
-  const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({
-    triggerOnce: true,
-  });
-  const { ref: tracksRef, isVisible: tracksVisible } = useScrollReveal({
-    triggerOnce: true,
-  });
+  const { ref: titleRef, isVisible: titleVisible } = useScrollReveal();
+  const { ref: contentRef, isVisible: contentVisible } = useScrollReveal();
 
-  const performances = [
+  const presentaciones = [
     {
-      city: "Buenos Aires",
-      venue: "Club Underground",
-      date: "2024",
-      description: "Set de melodic techno en la capital",
-      artists: "Bruno Brugnoli, Pluj",
+      fecha: "23",
+      mes: "AGO",
+      evento: "Ariane b2b Somnambulisme",
+      lugar: "Córdoba",
+      estado: "Confirmado",
     },
     {
-      city: "Córdoba",
-      venue: "Techno Warehouse",
-      date: "2024",
-      description: "Hard techno night con artistas locales",
-      artists: "Franco Musachi, Another",
+      fecha: "18",
+      mes: "SEP",
+      evento: "Complementary Opposites",
+      lugar: "CABA",
+      estado: "Próximamente",
     },
     {
-      city: "Corrientes",
-      venue: "Kill Sync Event",
-      date: "2023",
-      description: "Evento propio de la productora",
-      artists: "WearsPrada, Franzizca",
+      fecha: "20",
+      mes: "JUN",
+      evento: "Complementary Opposites Crew Festival by Gig Techno",
+      lugar: "CABA",
+      estado: "Confirmado",
     },
     {
-      city: "Posadas",
-      venue: "Electronic Festival",
-      date: "2023",
-      description: "Festival de música electrónica",
-      artists: "Anita B Queen, Hybrid",
+      fecha: "28",
+      mes: "JUN",
+      evento: "Complementary Opposites by Orden Dorada",
+      lugar: "CABA",
+      estado: "Confirmado",
+    },
+    {
+      fecha: "11",
+      mes: "JUL",
+      evento: "Ariane f2f Alexis Rod by Street Techno",
+      lugar: "Chaco",
+      estado: "Próximamente",
     },
   ];
 
   return (
-    <section id="music" className="py-24 px-6 lg:px-8 relative">
-      <div
-        className="absolute top-12 right-12 w-32 h-px"
-        style={{
-          background: `linear-gradient(to right, oklch(0.44 0.16 27), transparent)`,
-        }}
-      />
-
-      <div className="max-w-6xl mx-auto">
+    <section id="presentaciones" className="py-20 px-4 relative">
+      <div className="max-w-7xl mx-auto">
         <div
           ref={titleRef}
           className={`text-center mb-16 transition-all duration-1000 ${
@@ -63,108 +55,92 @@ export function MusicSection() {
               : "opacity-0 translate-y-8"
           }`}
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-gradient-brand">
-              Presentaciones Destacadas
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <span
+              style={{
+                background: `linear-gradient(135deg, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Próximas Presentaciones
             </span>
           </h2>
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-            Tour por Argentina compartiendo cabina con grandes referentes del
-            techno
+          <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
+            Próximos eventos y presentaciones donde podrás experimentar los sets
+            únicos de Ariane
           </p>
         </div>
 
         <div
-          ref={tracksRef}
-          className={`transition-all duration-1000 delay-300 ${
-            tracksVisible
+          ref={contentRef}
+          className={`transition-all duration-1000 delay-200 ${
+            contentVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="grid gap-6">
-            {performances.map((performance, index) => (
-              <div
-                key={performance.city}
-                className="group bg-gradient-to-r from-zinc-900/80 to-zinc-800/80 p-6 rounded-xl border backdrop-blur-sm hover:shadow-2xl transition-all duration-300"
-                style={
-                  {
-                    borderColor: `oklch(0.44 0.16 27 / 0.3)`,
-                    "--hover-border": `oklch(0.44 0.16 27 / 0.5)`,
-                    "--hover-shadow": `oklch(0.44 0.16 27 / 0.2)`,
-                  } as React.CSSProperties
-                }
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor =
-                    "oklch(0.44 0.16 27 / 0.5)";
-                  e.currentTarget.style.boxShadow = `0 25px 50px -12px oklch(0.44 0.16 27 / 0.2)`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor =
-                    "oklch(0.44 0.16 27 / 0.3)";
-                  e.currentTarget.style.boxShadow = "";
-                }}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-6">
-                    {/* Play button */}
-                    <Button
-                      size="sm"
-                      className="bg-gradient-brand text-white hover:opacity-90 w-12 h-12 rounded-full p-0 shadow-lg group-hover:scale-110 transition-transform duration-300"
-                    >
-                      <Play className="w-5 h-5 ml-0.5" />
-                    </Button>
-
-                    {/* Performance info */}
-                    <div>
-                      <h3 className="text-xl font-semibold text-zinc-100 group-hover:text-white transition-colors">
-                        {performance.city}
-                      </h3>
-                      <p
-                        className="text-sm"
-                        style={{ color: `oklch(0.51 0.19 28)` }}
-                      >
-                        {performance.venue}
-                      </p>
-                      <p className="text-zinc-500 text-xs mt-1">
-                        {performance.description}
-                      </p>
-                      <p className="text-zinc-400 text-xs mt-1">
-                        Con: {performance.artists}
-                      </p>
+          <div className="grid gap-6 md:gap-8">
+            {presentaciones.map((pres, index) => (
+              <div key={index} className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] rounded-2xl blur-xl opacity-10 group-hover:opacity-20 transition-opacity duration-500"></div>
+                <div className="relative bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-2xl p-8 hover:border-[oklch(0.51_0.19_28)]/50 transition-all duration-300 hover:transform hover:scale-[1.02]">
+                  <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center">
+                    {/* Calendar-style date */}
+                    <div className="flex-shrink-0">
+                      <div className="bg-gradient-to-br from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] rounded-xl p-4 text-center min-w-[80px]">
+                        <div className="text-2xl md:text-3xl font-bold text-white">
+                          {pres.fecha}
+                        </div>
+                        <div className="text-sm font-medium text-white/90">
+                          {pres.mes}
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Performance details */}
-                  <div className="text-right space-y-1">
-                    <div className="flex items-center text-zinc-400 text-sm">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {performance.date}
-                    </div>
-                    <div className="flex items-center text-zinc-400 text-sm">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      Argentina
+                    {/* Event details */}
+                    <div className="flex-grow">
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                          <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-[oklch(0.51_0.19_28)] transition-colors duration-300">
+                            {pres.evento}
+                          </h3>
+                          <div className="flex items-center gap-4 text-zinc-400">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                className="w-4 h-4"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                              <span className="font-medium">{pres.lugar}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Status badge */}
+                        <div className="flex-shrink-0">
+                          <span
+                            className={`px-4 py-2 rounded-full text-sm font-medium ${
+                              pres.estado === "Confirmado"
+                                ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                                : "bg-[oklch(0.51_0.19_28)]/20 text-[oklch(0.51_0.19_28)] border border-[oklch(0.51_0.19_28)]/30"
+                            }`}
+                          >
+                            {pres.estado}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* View all button */}
-          <div className="text-center mt-12">
-            <Button
-              size="lg"
-              variant="outline"
-              className="px-8 py-3 backdrop-blur-sm bg-transparent hover:bg-black/50"
-              style={{
-                borderColor: `oklch(0.44 0.16 27)`,
-                color: `oklch(0.51 0.19 28)`,
-              }}
-            >
-              <ExternalLink className="w-5 h-5 mr-2" />
-              Ver Todas las Presentaciones
-            </Button>
           </div>
         </div>
       </div>

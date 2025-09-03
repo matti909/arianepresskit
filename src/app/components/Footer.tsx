@@ -8,11 +8,11 @@ export default function Footer() {
             <h3 className="text-3xl font-bold gradient-text-subtle mb-4">
               ARIANE
             </h3>
-            <div className="h-0.5 w-20 bg-gradient-to-r from-purple-500 to-purple-600 mx-auto"></div>
+            <div className="h-0.5 w-20 bg-gradient-brand mx-auto"></div>
           </div>
           <div className="space-y-2">
             <p className="text-lg">
-              &copy; 2024 Ariane. Todos los derechos reservados.
+              &copy; 2025 Ariane. Todos los derechos reservados.
             </p>
             <p className="text-gray-500">
               Press Kit • Electronic Music Artist • Argentina

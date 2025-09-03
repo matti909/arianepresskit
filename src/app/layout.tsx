@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "./components/Navbar";
 import Footer from "./components/Footer";
+import SocialSideBar from "./components/SideBar";
+import { GridBackground } from "./components/GridBackground";
 
 const osSans = Oswald({
   subsets: ["latin"],
@@ -19,9 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={`${osSans.className} antialiased`}>
-        {children}
+        <Navbar />
+        <SocialSideBar />
+        <GridBackground />
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
