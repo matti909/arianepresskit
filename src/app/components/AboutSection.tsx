@@ -55,7 +55,7 @@ export function AboutSection() {
                 : "opacity-0 -translate-x-8"
             }`}
           >
-            <p className="text-xl text-zinc-300 leading-relaxed">
+            <p className="text-lg text-zinc-300 leading-relaxed">
               Ariana Amelia Sánchez, conocida artísticamente como Ariane, es una
               DJ emergente con una propuesta sonora en constante evolución.
               Nacida en Resistencia, Chaco, su vínculo con la música comenzó

@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Download, Music, Headphones, X } from "lucide-react";
+import { Play, Download, X } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import Image from "next/image";
-import { Logoari1 } from "../../../public/svg";
+import ArianeTitle from "./TitleSvg";
 
 export function HeroSection() {
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +28,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Contenido */}
-      <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+      <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10">
         {/* Logo */}
         <div
           ref={titleRef}
@@ -40,7 +39,7 @@ export function HeroSection() {
           }`}
         >
           <div className="flex justify-center">
-            <Logoari1 className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64" />
+            <ArianeTitle />
           </div>
           <div
             className="mt-4 h-1 w-32 mx-auto"
