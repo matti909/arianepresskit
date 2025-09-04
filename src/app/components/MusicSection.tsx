@@ -19,28 +19,7 @@ export function MusicSection() {
       mes: "SEP",
       evento: "Complementary Opposites",
       lugar: "CABA",
-      estado: "Próximamente",
-    },
-    {
-      fecha: "20",
-      mes: "JUN",
-      evento: "Complementary Opposites Crew Festival by Gig Techno",
-      lugar: "CABA",
       estado: "Confirmado",
-    },
-    {
-      fecha: "28",
-      mes: "JUN",
-      evento: "Complementary Opposites by Orden Dorada",
-      lugar: "CABA",
-      estado: "Confirmado",
-    },
-    {
-      fecha: "11",
-      mes: "JUL",
-      evento: "Ariane f2f Alexis Rod by Street Techno",
-      lugar: "Chaco",
-      estado: "Próximamente",
     },
   ];
 

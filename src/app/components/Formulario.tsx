@@ -5,7 +5,7 @@ import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useState } from "react";
 import SocialLinks from "./SocialLinks";
@@ -156,43 +156,8 @@ export function Formulario() {
               </div>
             </div>
 
-            {/* Right Column - Contact Information */}
+            {/* Right Column - Social and Booking */}
             <div className="space-y-8">
-              <div
-                className="bg-gradient-to-br from-zinc-900/80 to-zinc-800/80 p-8 rounded-2xl border backdrop-blur-sm"
-                style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
-              >
-                <h3 className="text-2xl font-bold text-zinc-200 mb-6">
-                  Información de Contacto
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-4">
-                    <Mail
-                      className="w-5 h-5"
-                      style={{ color: `oklch(0.51 0.19 28)` }}
-                    />
-                    <span className="text-zinc-300">
-                      killsyncproducciones@gmail.com
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <Phone
-                      className="w-5 h-5"
-                      style={{ color: `oklch(0.51 0.19 28)` }}
-                    />
-                    <span className="text-zinc-300">+54 3625 663769</span>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <MapPin
-                      className="w-5 h-5"
-                      style={{ color: `oklch(0.51 0.19 28)` }}
-                    />
-                    <span className="text-zinc-300">
-                      Resistencia, Chaco, Argentina
-                    </span>
-                  </div>
-                </div>
-              </div>
 
               {/* Social Links */}
               <div
