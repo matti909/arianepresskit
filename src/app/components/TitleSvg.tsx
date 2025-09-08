@@ -5,12 +5,12 @@ import Image from "next/image";
 
 export default function ArianeTitle() {
   return (
-    <div className="w-full max-w-2xl mx-auto flex justify-center" style={{ marginTop: '5px' }}>
+    <div className="w-full max-w-lg mx-auto flex justify-center" style={{ marginTop: '5px' }}>
       <Image 
         src="/logoari2.png"
         alt="Ariane"
-        width={600}
-        height={150}
+        width={360}
+        height={90}
         className="w-full h-auto max-w-full"
         priority
         style={{
