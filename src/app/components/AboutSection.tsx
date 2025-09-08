@@ -62,14 +62,14 @@ export function AboutSection() {
               desde temprana edad, asistiendo a eventos y festivales que
               marcaron su pasión por la electrónica.
             </p>
-            <p className="text-xl text-zinc-300 leading-relaxed">
+            <p className="text-lg text-zinc-300 leading-relaxed">
               Su fascinación por el género se consolidó en 2010, durante el auge
               del house y EDM, y en 2020 decidió dar el paso definitivo a la
               cabina. Ariane ha desarrollado un enfoque sólido y versátil,
               perfeccionando su técnica tanto de forma autodidacta como a través
               de su formación en Levels Academy.
             </p>
-            <p className="text-xl text-zinc-300 leading-relaxed">
+            <p className="text-shadow-lg text-zinc-300 leading-relaxed">
               Además, su compromiso con la escena underground la llevó a fundar{" "}
               <span className="text-gradient-brand font-semibold">
                 Kill Sync
