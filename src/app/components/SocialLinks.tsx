@@ -15,7 +15,7 @@ const socialLinks = [
     href: "https://www.instagram.com/ariane.dj/",
   },
   {
-    label: "Instagram (Complementary Opposites)",
+    label: "Comp. Opposites",
     href: "https://www.instagram.com/complementary.opposites/",
   },
 ];

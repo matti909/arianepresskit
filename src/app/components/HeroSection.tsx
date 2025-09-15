@@ -62,7 +62,12 @@ export function HeroSection() {
             <Button
               size="lg"
               className="bg-gradient-brand text-white hover:opacity-90 font-semibold px-8 py-3 shadow-2xl"
-              onClick={() => setShowModal(true)} // 👈 abre modal
+              onClick={() => {
+                const musicSection = document.getElementById('music');
+                if (musicSection) {
+                  musicSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               style={{
                 borderColor: `oklch(0.51 0.19 28 / 0.2)`,
               }}
