@@ -180,7 +180,7 @@ export function AboutSection() {
                 }}
               />
               <Image
-                src="/sobremi.jpg?height=600&width=500"
+                src="/sobremi.jpg"
                 alt="Ariane DJ"
                 width={500}
                 height={600}

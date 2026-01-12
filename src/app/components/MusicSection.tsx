@@ -4,6 +4,15 @@ import { useState } from "react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Play, Pause, ExternalLink, Volume2 } from "lucide-react";
 
+// Valores pre-generados para las barras del visualizador (evita problemas de hidratación)
+const VISUALIZER_BARS = [
+  { height: 26.5, delay: 0, duration: 0.8 },
+  { height: 35.2, delay: 0.1, duration: 0.7 },
+  { height: 42.8, delay: 0.2, duration: 0.9 },
+  { height: 30.4, delay: 0.3, duration: 0.6 },
+  { height: 38.1, delay: 0.4, duration: 0.75 }
+];
+
 export function MusicSection() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal();
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal();
@@ -75,14 +84,14 @@ export function MusicSection() {
             
             {/* Visualizador de ondas decorativo */}
             <div className="absolute -top-6 -right-8 flex space-x-1">
-              {[...Array(5)].map((_, i) => (
+              {VISUALIZER_BARS.map((bar, i) => (
                 <div
                   key={i}
                   className="w-1 bg-gradient-to-t from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] animate-pulse"
                   style={{
-                    height: `${20 + Math.random() * 30}px`,
-                    animationDelay: `${i * 0.1}s`,
-                    animationDuration: `${0.5 + Math.random() * 0.5}s`
+                    height: `${bar.height}px`,
+                    animationDelay: `${bar.delay}s`,
+                    animationDuration: `${bar.duration}s`
                   }}
                 />
               ))}
@@ -213,8 +222,7 @@ export function MusicSection() {
                     <iframe
                       src={`https://www.youtube.com/embed/${selectedVideo.id}?rel=0&modestbranding=1&color=white`}
                       title={selectedVideo.title}
-                      className="absolute inset-0 w-full h-full"
-                      frameBorder="0"
+                      className="absolute inset-0 w-full h-full border-0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     />
