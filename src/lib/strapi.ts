@@ -27,19 +27,21 @@ const QUERY_HOME_PAGE = {
         "layout.hero": {
           populate: {
             picture: {
-              fields: ["url", "alternativeText", "width", "height"]
+              fields: ["url", "alternativeText", "width", "height"],
             },
             logo: {
-              fields: ["url", "alternativeText", "width", "height"]
-            }
-          }
-        }
-      }
-    }
-  }
+              fields: ["url", "alternativeText", "width", "height"],
+            },
+          },
+        },
+      },
+    },
+  },
 };
 
 export async function getHomePage() {
+  "use cache";
+
   const query = qs.stringify(QUERY_HOME_PAGE, {
     encodeValuesOnly: true,
   });

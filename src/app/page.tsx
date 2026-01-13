@@ -4,6 +4,8 @@ import HeroSection from "./components/HeroSection";
 import { KillSyncSection } from "./components/KillsyncSection";
 import { MusicSection } from "./components/MusicSection";
 import { EstiloSonidoSection } from "./components/SonidoSection";
+import { PresentationsSection } from "./components/PresentationsSection";
+import { RiderTecnicoSection } from "./components/RiderTecnicoSection";
 
 export default function ArianesPressKit() {
   return (
@@ -13,6 +15,8 @@ export default function ArianesPressKit() {
       <EstiloSonidoSection />
       <KillSyncSection />
       <MusicSection />
+      <PresentationsSection />
+      <RiderTecnicoSection />
       <Formulario />
     </div>
   );

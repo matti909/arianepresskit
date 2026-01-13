@@ -3,6 +3,15 @@ import { HeroButtons } from "./HeroButtons";
 import { ScrollIndicator } from "./ScrollIndicator";
 import { getHomePage } from "@/lib/strapi";
 
+export async function generateMetadata() {
+  
+  const strapiData = await getHomePage();
+  return {
+    title: strapiData?.title || "Ariane Presskit",
+    description: strapiData?.description || "Welcome to Ariane Presskit",
+  };
+}
+
 const HeroSection = async () => {
   const strapiData = await getHomePage();
 
@@ -23,13 +32,11 @@ const HeroSection = async () => {
         }}
       />
       <div className="absolute inset-0 bg-black/60" />
-
       {/* Contenido */}
       <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10">
         <ArianeTitle logoUrl={logoUrl} />
         <HeroButtons />
       </div>
-
       <ScrollIndicator />
     </section>
   );
