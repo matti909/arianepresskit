@@ -12,9 +12,13 @@ const nextConfig: NextConfig = {
         port: "4000",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "*.strapiapp.com",
+      },
     ],
     dangerouslyAllowSVG: true,
-    unoptimized: process.env.NODE_ENV === "development",
+    unoptimized: true,
   },
   turbopack: {
     rules: {
