@@ -5,8 +5,20 @@ import type React from "react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Zap, Waves, Sparkles } from "lucide-react";
 import Image from "next/image";
+import {
+  BlocksRenderer,
+  type BlocksContent,
+} from "@strapi/blocks-react-renderer";
 
-export function AboutSection() {
+interface AboutSectionProps {
+  data?: {
+    title?: string;
+    description?: BlocksContent;
+    image?: { url: string };
+  };
+}
+
+export function AboutSection({ data }: AboutSectionProps) {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({
     triggerOnce: true,
   });
@@ -36,7 +48,7 @@ export function AboutSection() {
           }`}
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-gradient-brand">Sobre la Artista</span>
+            <span className="text-gradient-brand">{data?.title}</span>
           </h2>
           <div
             className="w-16 h-1 mx-auto"
@@ -55,29 +67,11 @@ export function AboutSection() {
                 : "opacity-0 -translate-x-8"
             }`}
           >
-            <p className="text-lg text-zinc-300 leading-relaxed">
-              Ariana Amelia Sánchez, conocida artísticamente como Ariane, es una
-              DJ emergente con una propuesta sonora en constante evolución.
-              Nacida en Resistencia, Chaco, su vínculo con la música comenzó
-              desde temprana edad, asistiendo a eventos y festivales que
-              marcaron su pasión por la electrónica.
-            </p>
-            <p className="text-lg text-zinc-300 leading-relaxed">
-              Su fascinación por el género se consolidó en 2010, durante el auge
-              del house y EDM, y en 2020 decidió dar el paso definitivo a la
-              cabina. Ariane ha desarrollado un enfoque sólido y versátil,
-              perfeccionando su técnica tanto de forma autodidacta como a través
-              de su formación en Levels Academy.
-            </p>
-            <p className="text-shadow-lg text-zinc-300 leading-relaxed">
-              Además, su compromiso con la escena underground la llevó a fundar{" "}
-              <span className="text-gradient-brand font-semibold">
-                Kill Sync
-              </span>
-              , una productora que impulsa eventos de techno, hard techno y
-              psytrance, consolidando su papel como una figura activa en la
-              expansión del movimiento electrónico en su ciudad.
-            </p>
+            {data?.description && (
+              <div className="space-y-6 text-lg text-zinc-300 leading-relaxed [&_em]:text-gradient-brand [&_em]:not-italic [&_em]:font-semibold [&>p>strong]:italic [&>p>strong]:text-red-500">
+                <BlocksRenderer content={data.description} />
+              </div>
+            )}
 
             {/* Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
@@ -180,11 +174,11 @@ export function AboutSection() {
                 }}
               />
               <Image
-                src="/sobremi.jpg"
+                src={data?.image?.url || "/sobremi.jpg"}
                 alt="Ariane DJ"
                 width={500}
                 height={600}
-                className="relative w-full h-[600px] object-cover rounded-2xl border shadow-2xl"
+                className="relative w-full h-150 object-cover  rounded-2xl border shadow-2xl rotate-90"
                 style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-2xl" />

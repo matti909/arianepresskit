@@ -4,7 +4,16 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Music2, MonitorSpeaker, Volume2, Disc3 } from "lucide-react";
 import Image from "next/image";
 
-export function RiderTecnicoSection() {
+interface RiderTecnicoSectionProps {
+  data?: {
+    title?: string;
+    subTitle?: string;
+    imagebg?: { url: string };
+    cdj?: { url: string };
+  };
+}
+
+export function RiderTecnicoSection({ data }: RiderTecnicoSectionProps) {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal();
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal();
   const { ref: equipmentRef, isVisible: equipmentVisible } = useScrollReveal();
@@ -35,7 +44,7 @@ export function RiderTecnicoSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/rider.jpg"
+          src={data?.imagebg?.url || "/rider.jpg"}
           alt="Technical Rider Background"
           fill
           className="object-cover"
@@ -66,10 +75,7 @@ export function RiderTecnicoSection() {
           <div className="relative inline-block">
             <h2 className="text-5xl md:text-7xl font-bold text-white mb-6">
               <span className="bg-gradient-to-r from-[oklch(0.51_0.19_28)] via-white to-[oklch(0.44_0.16_27)] bg-clip-text text-transparent">
-                TECHNICAL
-              </span>
-              <span className="block text-4xl md:text-6xl mt-2 text-zinc-300 font-light">
-                RIDER
+                {data?.title || "TECHNICAL RIDER"}
               </span>
             </h2>
 
@@ -83,11 +89,7 @@ export function RiderTecnicoSection() {
           </div>
 
           <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed mt-6">
-            Especificaciones técnicas y requerimientos de equipamiento para
-            <span className="text-[oklch(0.51_0.19_28)]">
-              {" "}
-              presentaciones profesionales
-            </span>
+            {data?.subTitle || "Especificaciones técnicas y requerimientos de equipamiento para presentaciones profesionales"}
           </p>
         </div>
 
@@ -107,9 +109,9 @@ export function RiderTecnicoSection() {
               <div className="absolute -inset-4 bg-linear-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] rounded-3xl blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-700"></div>
 
               {/* Imagen */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-linear-to-br from-zinc-900 to-black p-8">
+              <div className="relative">
                 <Image
-                  src="/pioneer-cdj-nexus-removebg-preview.png"
+                  src={data?.cdj?.url || "/pioneer-cdj-nexus-removebg-preview.png"}
                   alt="Pioneer CDJ Setup"
                   width={800}
                   height={600}

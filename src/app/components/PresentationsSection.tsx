@@ -3,51 +3,36 @@
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Calendar, MapPin, Clock, Ticket, ExternalLink } from "lucide-react";
 import Image from "next/image";
+import {
+  BlocksRenderer,
+  type BlocksContent,
+} from "@strapi/blocks-react-renderer";
 
-interface Presentacion {
-  id: string;
-  titulo: string;
-  descripcion?: string;
-  fecha: string; // ISO format: "2025-08-23"
-  hora?: string; // "22:00"
-  lugar: string;
-  ciudad: string;
-  banner: string; // URL de la imagen del evento
+interface Fecha {
+  id: number;
+  title: string;
+  description?: BlocksContent;
+  date: string;
+  hours: number;
+  club: string;
+  city: string;
   ticketsUrl?: string;
-  destacado?: boolean;
+  banner?: { url: string };
 }
 
-export function PresentationsSection() {
+interface PresentationsSectionProps {
+  data?: {
+    title?: string;
+    description?: BlocksContent;
+    fechas?: Fecha[];
+  };
+}
+
+export function PresentationsSection({ data }: PresentationsSectionProps) {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal();
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal();
 
-  // Datos de ejemplo - esto puede venir de una API o CMS
-  const presentaciones: Presentacion[] = [
-    {
-      id: "1",
-      titulo: "ARIANE B2B SOMNAMBULISME",
-      descripcion: "Una noche de techno hipnótico y contundente. Dos artistas, un viaje sonoro inolvidable a través de los beats más oscuros y envolventes.",
-      fecha: "2025-08-23",
-      hora: "23:00",
-      lugar: "Club Underground",
-      ciudad: "Córdoba",
-      banner: "/ariana.webp", // Placeholder - reemplazar con imagen real
-      ticketsUrl: "https://www.passline.com/eventos/ariane-cordoba",
-      destacado: true,
-    },
-    {
-      id: "2",
-      titulo: "COMPLEMENTARY OPPOSITES",
-      descripcion: "Una experiencia única donde los opuestos se complementan. Progressive house y melodic techno en perfecta armonía.",
-      fecha: "2025-09-18",
-      hora: "22:30",
-      lugar: "Groove Buenos Aires",
-      ciudad: "CABA",
-      banner: "/ariana.webp", // Placeholder - reemplazar con imagen real
-      ticketsUrl: "https://www.passline.com/eventos/complementary-opposites",
-      destacado: false,
-    },
-  ];
+  const presentaciones = data?.fechas || [];
 
   const formatearFecha = (fechaISO: string) => {
     const fecha = new Date(fechaISO + "T00:00:00");
@@ -82,18 +67,14 @@ export function PresentationsSection() {
               <span
                 className="bg-gradient-to-r from-[oklch(0.51_0.19_28)] via-white to-[oklch(0.44_0.16_27)] bg-clip-text text-transparent"
               >
-                UPCOMING
-              </span>
-              <span className="block text-4xl md:text-6xl mt-2 text-zinc-300 font-light">
-                SHOWS
+                {data?.title || "UPCOMING SHOWS"}
               </span>
             </h2>
           </div>
 
-          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed mt-6">
-            Asegura tu lugar en las próximas presentaciones.
-            <span className="text-[oklch(0.51_0.19_28)]"> Experiencias inmersivas</span> que no puedes perderte.
-          </p>
+          <div className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed mt-6 [&_strong]:text-[oklch(0.51_0.19_28)]">
+            {data?.description && <BlocksRenderer content={data.description} />}
+          </div>
         </div>
 
         {/* Grid de eventos */}
@@ -107,7 +88,7 @@ export function PresentationsSection() {
         >
           <div className="grid gap-8 lg:gap-10">
             {presentaciones.map((evento, index) => {
-              const { dia, mes, mesCompleto, año } = formatearFecha(evento.fecha);
+              const { dia, mes, mesCompleto, año } = formatearFecha(evento.date);
 
               return (
                 <div
@@ -124,23 +105,13 @@ export function PresentationsSection() {
                       {/* Banner del evento */}
                       <div className="relative h-64 lg:h-full overflow-hidden">
                         <Image
-                          src={evento.banner}
-                          alt={evento.titulo}
+                          src={evento.banner?.url || "/ariana.webp"}
+                          alt={evento.title}
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                         {/* Overlay gradient */}
                         <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
-
-                        {/* Badge destacado */}
-                        {evento.destacado && (
-                          <div className="absolute top-4 left-4">
-                            <div className="px-4 py-2 bg-[oklch(0.51_0.19_28)] rounded-full text-white text-xs font-bold tracking-wider uppercase flex items-center gap-2 shadow-lg">
-                              <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-                              Destacado
-                            </div>
-                          </div>
-                        )}
 
                         {/* Fecha en el banner */}
                         <div className="absolute bottom-4 left-4">
@@ -158,14 +129,14 @@ export function PresentationsSection() {
                         <div>
                           {/* Título */}
                           <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4 group-hover:text-[oklch(0.51_0.19_28)] transition-colors duration-300 tracking-tight">
-                            {evento.titulo}
+                            {evento.title}
                           </h3>
 
                           {/* Descripción */}
-                          {evento.descripcion && (
-                            <p className="text-zinc-400 text-lg leading-relaxed mb-6">
-                              {evento.descripcion}
-                            </p>
+                          {evento.description && (
+                            <div className="text-zinc-400 text-lg leading-relaxed mb-6 [&_strong]:text-[oklch(0.51_0.19_28)]">
+                              <BlocksRenderer content={evento.description} />
+                            </div>
                           )}
 
                           {/* Info del evento */}
@@ -177,8 +148,8 @@ export function PresentationsSection() {
                               </div>
                               <div>
                                 <span className="font-medium capitalize">{mesCompleto} {dia}, {año}</span>
-                                {evento.hora && (
-                                  <span className="text-zinc-500 ml-2">• {evento.hora} hs</span>
+                                {evento.hours && (
+                                  <span className="text-zinc-500 ml-2">• {evento.hours}:00 hs</span>
                                 )}
                               </div>
                             </div>
@@ -189,8 +160,8 @@ export function PresentationsSection() {
                                 <MapPin className="w-5 h-5 text-[oklch(0.51_0.19_28)]" />
                               </div>
                               <div>
-                                <span className="font-medium">{evento.lugar}</span>
-                                <span className="text-zinc-500 ml-2">• {evento.ciudad}</span>
+                                <span className="font-medium">{evento.club}</span>
+                                <span className="text-zinc-500 ml-2">• {evento.city}</span>
                               </div>
                             </div>
                           </div>

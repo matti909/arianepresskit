@@ -2,8 +2,20 @@
 
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import Image from "next/image";
+import {
+  BlocksRenderer,
+  type BlocksContent,
+} from "@strapi/blocks-react-renderer";
 
-export function EstiloSonidoSection() {
+interface EstiloSonidoSectionProps {
+  data?: {
+    title?: string;
+    description?: BlocksContent;
+    image?: { url: string };
+  };
+}
+
+export function EstiloSonidoSection({ data }: EstiloSonidoSectionProps) {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal();
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal();
   const { ref: imageRef, isVisible: imageVisible } = useScrollReveal();
@@ -20,15 +32,8 @@ export function EstiloSonidoSection() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Estilo y{" "}
-            <span
-              style={{
-                background: `linear-gradient(135deg, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Sonido
+            <span className="text-gradient-brand">
+              {data?.title || "Estilo y Sonido"}
             </span>
           </h2>
         </div>
@@ -42,33 +47,11 @@ export function EstiloSonidoSection() {
                 : "opacity-0 -translate-x-8"
             }`}
           >
-            <p className="text-lg text-zinc-300 leading-relaxed mb-6">
-              Ariane se distingue por su capacidad de fusionar melodías
-              armónicas, vocales envolventes y bajos potentes, creando sets
-              dinámicos que oscilan entre lo hipnótico y lo contundente.
-            </p>
-            <p className="text-lg text-zinc-300 leading-relaxed mb-6">
-              Sus influencias abarcan desde{" "}
-              <span style={{ color: "oklch(0.51 0.19 28)" }}>Adam Beyer</span> y
-              <span style={{ color: "oklch(0.51 0.19 28)" }}> CLTX</span> hasta
-              artistas como
-              <span style={{ color: "oklch(0.51 0.19 28)" }}>
-                {" "}
-                Hernán Cattáneo
-              </span>{" "}
-              y
-              <span style={{ color: "oklch(0.51 0.19 28)" }}>
-                {" "}
-                Marlon Hoffstadt
-              </span>
-              , reflejándose en un estilo progresivo que transita por géneros
-              como progressive house, melodic techno, techno, trance y hard
-              techno.
-            </p>
-            <p className="text-lg text-zinc-300 leading-relaxed">
-              Cada presentación es un viaje sonoro inmersivo, diseñado para
-              hacer de la pista una verdadera experiencia.
-            </p>
+            {data?.description && (
+              <div className="space-y-6 text-lg text-zinc-300 [&>p>strong]:italic [&>p>strong]:text-red-500 leading-relaxed [&_em]:text-gradient-brand [&_em]:not-italic [&_em]:font-semibold">
+                <BlocksRenderer content={data.description} />
+              </div>
+            )}
           </div>
 
           <div
@@ -80,13 +63,13 @@ export function EstiloSonidoSection() {
             }`}
           >
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
               <Image
-                src="/estiloysonido.jpg"
+                src={data?.image?.url!}
                 alt="Ariane performing"
                 width={600}
                 height={500}
-                className="relative rounded-2xl w-full h-[400px] object-cover border border-zinc-800"
+                className="relative rounded-2xl w-full h-100 object-cover border border-zinc-800"
               />
             </div>
           </div>

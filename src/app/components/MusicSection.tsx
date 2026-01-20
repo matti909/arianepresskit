@@ -2,7 +2,19 @@
 
 import { useState } from "react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { Play, Pause, ExternalLink, Volume2 } from "lucide-react";
+import { ExternalLink, Volume2 } from "lucide-react";
+import {
+  BlocksRenderer,
+  type BlocksContent,
+} from "@strapi/blocks-react-renderer";
+
+// Formatea duración de número (ej: 45.3) a string "mm:ss" (ej: "45:30")
+function formatDuration(duration: number | string): string {
+  if (typeof duration === "string") return duration;
+  const minutes = Math.floor(duration);
+  const seconds = Math.round((duration - minutes) * 100);
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
 
 // Valores pre-generados para las barras del visualizador (evita problemas de hidratación)
 const VISUALIZER_BARS = [
@@ -10,46 +22,49 @@ const VISUALIZER_BARS = [
   { height: 35.2, delay: 0.1, duration: 0.7 },
   { height: 42.8, delay: 0.2, duration: 0.9 },
   { height: 30.4, delay: 0.3, duration: 0.6 },
-  { height: 38.1, delay: 0.4, duration: 0.75 }
+  { height: 38.1, delay: 0.4, duration: 0.75 },
 ];
 
-export function MusicSection() {
+interface Track {
+  title: string;
+  genre: string;
+  duration: number;
+  description: string;
+  url: string;
+  embedUrl: string;
+}
+
+interface YouTubeVideo {
+  id: number;
+  title: string;
+  ids: string;
+}
+
+interface MusicSectionProps {
+  data?: {
+    title?: string;
+    subTitle?: BlocksContent;
+    soundcloud?: Track[];
+    youtube?: YouTubeVideo[];
+  };
+}
+
+export function MusicSection({ data }: MusicSectionProps) {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal();
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal();
   const { ref: playerRef, isVisible: playerVisible } = useScrollReveal();
 
   const [selectedTrack, setSelectedTrack] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  const tracks = [
-    {
-      title: "Hypnotic Techno Set",
-      genre: "TECHNO",
-      url: "https://soundcloud.com/ariana-amelia/short-hypnotic-techno-set-ariane",
-      embedUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/YOUR_TRACK_ID&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-      description: "Un viaje sonoro profundo que combina elementos hipnóticos con beats contundentes",
-      duration: "45:30",
-      color: "oklch(0.51 0.19 28)"
-    },
-    {
-      title: "Trance Euro Disco",
-      genre: "TRANCE",
-      url: "https://soundcloud.com/ariana-amelia/trance-euro-disco-set-from-the-vault-10032024",
-      embedUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/YOUR_TRACK_ID_2&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-      description: "Una fusión nostálgica entre el trance moderno y las raíces del euro disco",
-      duration: "52:15",
-      color: "oklch(0.44 0.16 27)"
-    }
-  ];
+  const tracks = data?.soundcloud || [];
+  const youtubeVideos = data?.youtube || [];
 
-  const youtubeVideos = [
-    { id: "XX3C4PglCig", title: "Live Session #1" },
-    { id: "VhoDNkFFuO4", title: "Live Session #2" },
-    { id: "7K8jQDhjoO0", title: "Live Session #3" },
-    { id: "-7XXJzPb2VQ", title: "Live Session #4" }
-  ];
+  const [selectedVideo, setSelectedVideo] = useState<YouTubeVideo | null>(null);
 
-  const [selectedVideo, setSelectedVideo] = useState(youtubeVideos[0]);
+  // Set first video as selected when data loads
+  if (!selectedVideo && youtubeVideos.length > 0) {
+    setSelectedVideo(youtubeVideos[0]);
+  }
 
   return (
     <section id="music" className="py-24 px-6 lg:px-8 relative overflow-hidden">
@@ -72,36 +87,30 @@ export function MusicSection() {
         >
           <div className="relative inline-block">
             <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 relative">
-              <span
-                className="bg-gradient-to-r from-[oklch(0.51_0.19_28)] via-white to-[oklch(0.44_0.16_27)] bg-clip-text text-transparent"
-              >
-                SONIC
-              </span>
-              <span className="block text-4xl md:text-6xl mt-2 text-zinc-300 font-light">
-                UNIVERSE
+              <span className="bg-linear-to-r from-[oklch(0.51_0.19_28)] via-white to-[oklch(0.44_0.16_27)] bg-clip-text text-transparent">
+                {data?.title}
               </span>
             </h2>
-            
+
             {/* Visualizador de ondas decorativo */}
             <div className="absolute -top-6 -right-8 flex space-x-1">
               {VISUALIZER_BARS.map((bar, i) => (
                 <div
                   key={i}
-                  className="w-1 bg-gradient-to-t from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] animate-pulse"
+                  className="w-1 bg-linear-to-t from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] animate-pulse"
                   style={{
                     height: `${bar.height}px`,
                     animationDelay: `${bar.delay}s`,
-                    animationDuration: `${bar.duration}s`
+                    animationDuration: `${bar.duration}s`,
                   }}
                 />
               ))}
             </div>
           </div>
-          
-          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-            Explora el universo sonoro de Ariane a través de sets únicos que definen 
-            <span className="text-[oklch(0.51_0.19_28)]"> su identidad artística</span>
-          </p>
+
+          <div className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed [&_strong]:text-[oklch(0.51_0.19_28)]">
+            {data?.subTitle && <BlocksRenderer content={data.subTitle} />}
+          </div>
         </div>
 
         {/* Selector de tracks */}
@@ -120,68 +129,44 @@ export function MusicSection() {
                 onClick={() => setSelectedTrack(index)}
                 className={`group relative p-8 rounded-3xl border-2 transition-all duration-500 cursor-pointer hover:scale-105 ${
                   selectedTrack === index
-                    ? 'border-[oklch(0.51_0.19_28)] bg-gradient-to-br from-[oklch(0.51_0.19_28)]/10 to-[oklch(0.44_0.16_27)]/5'
-                    : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700'
+                    ? "border-[oklch(0.51_0.19_28)] bg-linear-to-br from-[oklch(0.51_0.19_28)]/10 to-[oklch(0.44_0.16_27)]/5"
+                    : "border-zinc-800 bg-zinc-900/50 hover:border-zinc-700"
                 }`}
               >
                 {/* Efecto de brillo en hover */}
-                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-gradient-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)]"></div>
-                
+                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-linear-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)]"></div>
+
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-4">
-                    <span 
-                      className="px-3 py-1 rounded-full text-xs font-bold tracking-wider"
-                      style={{ 
-                        backgroundColor: `${track.color}/20`,
-                        color: track.color,
-                        border: `1px solid ${track.color}/30`
-                      }}
-                    >
+                    <span className="px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-[oklch(0.51_0.19_28)]/20 text-[oklch(0.51_0.19_28)] border border-[oklch(0.51_0.19_28)]/30">
                       {track.genre}
                     </span>
                     <div className="flex items-center space-x-2 text-zinc-400">
                       <Volume2 className="w-4 h-4" />
-                      <span className="text-sm">{track.duration}</span>
+                      <span className="text-sm">
+                        {formatDuration(track.duration)}
+                      </span>
                     </div>
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-[oklch(0.51_0.19_28)] transition-colors">
                     {track.title}
                   </h3>
-                  
+
                   <p className="text-zinc-400 leading-relaxed mb-4">
                     {track.description}
                   </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <button 
-                      className="flex items-center space-x-2 text-[oklch(0.51_0.19_28)] hover:text-white transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsPlaying(!isPlaying);
-                      }}
-                    >
-                      {isPlaying && selectedTrack === index ? (
-                        <Pause className="w-5 h-5" />
-                      ) : (
-                        <Play className="w-5 h-5" />
-                      )}
-                      <span className="font-medium">
-                        {isPlaying && selectedTrack === index ? 'Pausar' : 'Reproducir'}
-                      </span>
-                    </button>
-                    
-                    <a
-                      href={track.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-1 text-zinc-500 hover:text-[oklch(0.51_0.19_28)] transition-colors"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      <span className="text-sm">SoundCloud</span>
-                    </a>
-                  </div>
+
+                  <a
+                    href={track.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-1 text-zinc-500 hover:text-[oklch(0.51_0.19_28)] transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span className="text-sm">SoundCloud</span>
+                  </a>
                 </div>
               </div>
             ))}
@@ -197,10 +182,10 @@ export function MusicSection() {
               : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="bg-gradient-to-br from-zinc-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-8 border border-zinc-800/50 relative overflow-hidden">
+          <div className="bg-linear-to-br from-zinc-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-8 border border-zinc-800/50 relative overflow-hidden">
             {/* Efecto de brillo de fondo */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.51_0.19_28)]/5 via-transparent to-[oklch(0.44_0.16_27)]/5"></div>
-            
+            <div className="absolute inset-0 bg-linear-to-r from-[oklch(0.51_0.19_28)]/5 via-transparent to-[oklch(0.44_0.16_27)]/5"></div>
+
             <div className="relative z-10">
               <div className="flex flex-col lg:flex-row gap-8 items-center">
                 {/* Info del track actual */}
@@ -209,35 +194,37 @@ export function MusicSection() {
                     Ahora Reproduciendo
                   </h3>
                   <p className="text-xl text-[oklch(0.51_0.19_28)] mb-4">
-                    {tracks[selectedTrack].title}
+                    {tracks[selectedTrack]?.title}
                   </p>
                   <p className="text-zinc-400 max-w-lg">
-                    {tracks[selectedTrack].description}
+                    {tracks[selectedTrack]?.description}
                   </p>
                 </div>
 
                 {/* YouTube iframe */}
                 <div className="flex-1 w-full max-w-2xl">
                   <div className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-700/50 shadow-2xl">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${selectedVideo.id}?rel=0&modestbranding=1&color=white`}
-                      title={selectedVideo.title}
-                      className="absolute inset-0 w-full h-full border-0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    />
+                    {selectedVideo && (
+                      <iframe
+                        src={`https://www.youtube.com/embed/${selectedVideo.ids}?rel=0&modestbranding=1&color=white`}
+                        title={selectedVideo.title}
+                        className="absolute inset-0 w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      />
+                    )}
                   </div>
-                  
+
                   {/* Selector de videos */}
                   <div className="flex space-x-2 mt-4 overflow-x-auto pb-2">
                     {youtubeVideos.map((video) => (
                       <button
                         key={video.id}
                         onClick={() => setSelectedVideo(video)}
-                        className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                          selectedVideo.id === video.id
-                            ? 'bg-[oklch(0.51_0.19_28)] text-white'
-                            : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
+                        className={`shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          selectedVideo?.id === video.id
+                            ? "bg-[oklch(0.51_0.19_28)] text-white"
+                            : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white"
                         }`}
                       >
                         {video.title}

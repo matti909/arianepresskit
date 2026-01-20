@@ -2,8 +2,21 @@
 
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import Image from "next/image";
+import {
+  BlocksRenderer,
+  type BlocksContent,
+} from "@strapi/blocks-react-renderer";
 
-export function KillSyncSection() {
+interface KillSyncSectionProps {
+  data?: {
+    heading?: string;
+    subHeading?: string;
+    description?: BlocksContent;
+    image?: { url: string };
+  };
+}
+
+export function KillSyncSection({ data }: KillSyncSectionProps) {
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal();
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal();
   const { ref: imageRef, isVisible: imageVisible } = useScrollReveal();
@@ -20,17 +33,13 @@ export function KillSyncSection() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            <span
-              style={{
-                background: `linear-gradient(135deg, oklch(0.51 0.19 28), oklch(0.44 0.16 27))`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Kill Sync
+            <span className="text-gradient-brand">
+              {data?.heading || "Kill Sync"}
             </span>
           </h2>
-          <p className="text-xl text-zinc-400">Productora Underground</p>
+          <p className="text-xl text-zinc-400">
+            {data?.subHeading || "Productora Underground"}
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -43,13 +52,13 @@ export function KillSyncSection() {
             }`}
           >
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-[oklch(0.51_0.19_28)] to-[oklch(0.44_0.16_27)] rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
               <Image
-                src="/killsync.jpg"
+                src={data?.image?.url!}
                 alt="Kill Sync Event"
                 width={400}
                 height={600}
-                className="relative rounded-2xl w-full h-[400px] object-cover border border-zinc-800"
+                className="relative rounded-2xl w-full h-100 object-cover border border-zinc-800"
               />
             </div>
           </div>
@@ -62,22 +71,11 @@ export function KillSyncSection() {
                 : "opacity-0 translate-x-8"
             }`}
           >
-            <p className="text-lg text-zinc-300 leading-relaxed mb-6">
-              Nace en <span style={{ color: "oklch(0.51 0.19 28)" }}>2022</span>{" "}
-              con la visión de generar un espacio seguro para que artistas
-              puedan expresar su arte tanto sonoras como gráficas.
-            </p>
-            <p className="text-lg text-zinc-300 leading-relaxed mb-6">
-              Siempre con un sonido enfocado en géneros como{" "}
-              <span style={{ color: "oklch(0.51 0.19 28)" }}>Techno</span>,
-              <span style={{ color: "oklch(0.51 0.19 28)" }}> Trance</span>,
-              tanto sus subgéneros minimalistas como más duros, lograron
-              consagrarse en la escena underground local.
-            </p>
-            <p className="text-lg text-zinc-300 leading-relaxed">
-              Dando visibilización a artistas de la región, como a nacionales de
-              la escena underground.
-            </p>
+            {data?.description && (
+              <div className="space-y-6 text-lg text-zinc-300 leading-relaxed [&_em]:text-gradient-brand [&_em]:not-italic [&_em]:font-semibold [&>p>strong]:italic [&>p>strong]:text-red-500">
+                <BlocksRenderer content={data.description} />
+              </div>
+            )}
           </div>
         </div>
       </div>
