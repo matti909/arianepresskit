@@ -1,4 +1,6 @@
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="footer-enhanced">
       <div className="footer-clip-path"></div>
@@ -12,7 +14,7 @@ export default function Footer() {
           </div>
           <div className="space-y-2">
             <p className="text-lg">
-              &copy; 2025 Ariane. Todos los derechos reservados.
+              &copy; {currentYear} Ariane. Todos los derechos reservados.
             </p>
             <p className="text-gray-500">
               Press Kit • Electronic Music Artist • Argentina
