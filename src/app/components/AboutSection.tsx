@@ -178,7 +178,7 @@ export function AboutSection({ data }: AboutSectionProps) {
                 alt="Ariane DJ"
                 width={500}
                 height={600}
-                className="relative w-full h-150 object-cover  rounded-2xl border shadow-2xl rotate-90"
+                className="relative w-full h-150 object-cover  rounded-2xl border shadow-2xl "
                 style={{ borderColor: `oklch(0.44 0.16 27 / 0.3)` }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-2xl" />

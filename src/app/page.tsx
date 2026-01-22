@@ -11,14 +11,23 @@ import { getHomePage } from "@/lib/strapi";
 export default async function ArianesPressKit() {
   const strapiData = await getHomePage();
   const sections = strapiData?.sections || [];
+  //  console.log("Strapi Sections:", sections);
 
   const heroData = sections.find((s: any) => s.__component === "layout.hero");
-  const aboutData = sections.find((s: any) => s.__component === "layout.aboutme");
-  const styleData = sections.find((s: any) => s.__component === "layout.stylesound");
-  const killsyncData = sections.find((s: any) => s.__component === "layout.killsync");
+  const aboutData = sections.find(
+    (s: any) => s.__component === "layout.aboutme",
+  );
+  const styleData = sections.find(
+    (s: any) => s.__component === "layout.stylesound",
+  );
+  const killsyncData = sections.find(
+    (s: any) => s.__component === "layout.killsync",
+  );
   const musicData = sections.find((s: any) => s.__component === "layout.music");
   const showsData = sections.find((s: any) => s.__component === "layout.shows");
-  const technicalData = sections.find((s: any) => s.__component === "layout.technical");
+  const technicalData = sections.find(
+    (s: any) => s.__component === "layout.technical",
+  );
 
   return (
     <div className="relative">
